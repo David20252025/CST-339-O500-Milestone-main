@@ -54,13 +54,19 @@ public class ProductController {
     @PostMapping("/products/create")
     public String createProduct(@Valid ProductModel productModel, BindingResult result, Model model, HttpSession session) {
 
+        System.out.println("POST /products/create reached.");
+
         if (session.getAttribute("loggedInUser") == null) {
+            System.out.println("User not logged in.");
             return "redirect:/login";
         }
 
         if (result.hasErrors()) {
+            System.out.println("Validation failed.");
             return "create-product";
         }
+
+        System.out.println("Saving product: " + productModel.getName());
 
         productBusinessService.addProduct(productModel);
         return "redirect:/products";

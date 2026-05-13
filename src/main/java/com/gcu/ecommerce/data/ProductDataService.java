@@ -26,9 +26,11 @@ public class ProductDataService implements ProductDAO {
 
     @Override
     public int create(ProductModel product) {
+        System.out.println("DATABASE INSERT RUNNING: " + product.getName());
+
         String sql = "INSERT INTO products (name, category, price, quantity_in_stock, description) VALUES (?, ?, ?, ?, ?)";
 
-        return jdbcTemplate.update(
+        int rows = jdbcTemplate.update(
                 sql,
                 product.getName(),
                 product.getCategory(),
@@ -36,6 +38,10 @@ public class ProductDataService implements ProductDAO {
                 product.getQuantityInStock(),
                 product.getDescription()
         );
+
+        System.out.println("ROWS INSERTED: " + rows);
+
+        return rows;
     }
 
     private ProductModel mapRowToProduct(ResultSet rs, int rowNum) throws SQLException {
