@@ -6,7 +6,7 @@ import com.gcu.ecommerce.models.UserModel;
 
 /**
  * RegistrationBusinessService handles registration business logic.
- * registration is validated Milestone 4 with database.
+ *  Milestone 4 database.
  */
 
 import com.gcu.ecommerce.data.UserDAO;

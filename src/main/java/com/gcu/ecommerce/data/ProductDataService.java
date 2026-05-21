@@ -26,23 +26,50 @@ public class ProductDataService implements ProductDAO {
 
     @Override
     public int create(ProductModel product) {
-        System.out.println("DATABASE INSERT RUNNING: " + product.getName());
-
+    
         String sql = "INSERT INTO products (name, category, price, quantity_in_stock, description) VALUES (?, ?, ?, ?, ?)";
 
-        int rows = jdbcTemplate.update(
+        return jdbcTemplate.update(
                 sql,
                 product.getName(),
                 product.getCategory(),
                 product.getPrice(),
                 product.getQuantityInStock(),
                 product.getDescription()
-        );
-
-        System.out.println("ROWS INSERTED: " + rows);
-
-        return rows;
+        );  
+        
     }
+    
+    // Milestone 5: display one product
+    @Override
+    public ProductModel findById(int id) {
+        String sql = "SELECT id, name, category, price, quantity_in_stock, description FROM products WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, this::mapRowToProduct, id);
+    }
+
+    // Milestone 5: update product in database
+    @Override
+    public int update(ProductModel product) {
+        String sql = "UPDATE products SET name = ?, category = ?, price = ?, quantity_in_stock = ?, description = ? WHERE id = ?";
+
+        return jdbcTemplate.update(
+                sql,
+                product.getName(),
+                product.getCategory(),
+                product.getPrice(),
+                product.getQuantityInStock(),
+                product.getDescription(),
+                product.getId()
+        );
+    }
+
+    // Milestone 5: delete product from database
+    @Override
+    public int deleteById(int id) {
+        String sql = "DELETE FROM products WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
+    }
+    
 
     private ProductModel mapRowToProduct(ResultSet rs, int rowNum) throws SQLException {
         return new ProductModel(

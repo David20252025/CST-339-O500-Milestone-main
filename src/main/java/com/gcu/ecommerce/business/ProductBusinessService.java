@@ -23,4 +23,20 @@ public class ProductBusinessService {
     public void addProduct(ProductModel productModel) {
         productDAO.create(productModel);
     }
+    
+    // Milestone 5 get one product
+    public ProductModel getProductById(int id) {
+        return productDAO.findById(id);
+    }
+
+    // Milestone 5 update product
+    public void updateProduct(ProductModel productModel) {
+        productDAO.update(productModel);
+    }
+
+    // Milestone 5 delete product
+    public void deleteProduct(int id) {
+        productDAO.deleteById(id);
+    }
+    
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gcu.ecommerce.business.ProductBusinessService;
 import com.gcu.ecommerce.models.ProductModel;
+import org.springframework.web.bind.annotation.PathVariable; // Milestone 5
 
 /**
  * ProductController handles product catalog and product creation requests.
@@ -69,6 +70,57 @@ public class ProductController {
         System.out.println("Saving product: " + productModel.getName());
 
         productBusinessService.addProduct(productModel);
+        return "redirect:/products";
+    }
+ // Milestone 5 product details page
+    @GetMapping("/products/details/{id}")
+    public String productDetails(@PathVariable int id, Model model, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("product", productBusinessService.getProductById(id));
+        return "product-details";
+    }
+
+    // Milestone 5 edit product form
+    @GetMapping("/products/edit/{id}")
+    public String editProductForm(@PathVariable int id, Model model, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("productModel", productBusinessService.getProductById(id));
+        return "edit-product";
+    }
+
+    // Milestone 5 update product
+    @PostMapping("/products/update")
+    public String updateProduct(@Valid ProductModel productModel, BindingResult result, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        if (result.hasErrors()) {
+            return "edit-product";
+        }
+
+        productBusinessService.updateProduct(productModel);
+        return "redirect:/products";
+    }
+
+    // Milestone 5 delete product
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable int id, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
+
+        productBusinessService.deleteProduct(id);
         return "redirect:/products";
     }
 }
