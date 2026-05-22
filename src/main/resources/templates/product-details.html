@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head('Product Details')"></head>
+
+<body>
+<div th:replace="fragments/layout :: navbar"></div>
+
+<main class="container py-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <h1 class="h3 mb-3" th:text="${product.name}">Product Name</h1>
+
+            <p><strong>Category:</strong> <span th:text="${product.category}"></span></p>
+            <p><strong>Price:</strong> $<span th:text="${product.price}"></span></p>
+            <p><strong>Stock:</strong> <span th:text="${product.quantityInStock}"></span></p>
+
+            <p><strong>Description:</strong></p>
+            <p th:text="${product.description}"></p>
+
+            <a class="btn btn-secondary" th:href="@{/products}">Back</a>
+            <a class="btn btn-warning" th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a>
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>
