@@ -56,4 +56,30 @@ public class UserDataService implements UserDAO {
             return false;
         }
     }
+    
+    // Milestone 6 gets user account from MySQL for Spring Security.
+    @Override
+    public UserModel findByUsername(String username) {
+        String sql = "SELECT id, first_name, last_name, email, phone_number, username, password FROM users WHERE username = ?";
+
+        try {
+        	return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+
+        	    UserModel user = new UserModel();
+
+
+        	    user.setFirstName(rs.getString("first_name"));
+        	    user.setLastName(rs.getString("last_name"));
+        	    user.setEmail(rs.getString("email"));
+        	    user.setPhoneNumber(rs.getString("phone_number"));
+        	    user.setUsername(rs.getString("username"));
+        	    user.setPassword(rs.getString("password"));
+
+        	    return user;
+
+        	}, username);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
 }

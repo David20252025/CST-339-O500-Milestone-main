@@ -45,6 +45,11 @@
         <version>8.0.33</version>
         <scope>runtime</scope>
     </dependency>
+    <!-- Milestone 6 Spring Security dependency -->
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
 
 </dependencies>
  <build><plugins><plugin><groupId>org.springframework.boot</groupId><artifactId>spring-boot-maven-plugin</artifactId></plugin></plugins></build>

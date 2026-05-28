@@ -10,4 +10,7 @@ public interface UserDAO {
     boolean authenticate(LoginModel loginModel);
 
     boolean usernameExists(String username);
+    
+    // Milestone 6 find user by username for Spring Security login.
+    UserModel findByUsername(String username);
 }
