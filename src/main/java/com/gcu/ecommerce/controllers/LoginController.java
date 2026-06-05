@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gcu.ecommerce.models.LoginModel;
 
+//Milestone 6
 @Controller
 public class LoginController {
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.gcu.ecommerce.data.UserDAO;
 import com.gcu.ecommerce.models.UserModel;
 
+// Milestone 6
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

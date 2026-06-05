@@ -5,6 +5,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+//Milestone 6
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -22,8 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/login", "/register", "/css/**", "/images/**").permitAll()
+                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // Milestone 7
+                .antMatchers("/api/**").authenticated()  // Milestone 7
                 .anyRequest().authenticated()
             .and()
+            .httpBasic()  // Milestone 7
+            .and()  // Milestone 7
             .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
