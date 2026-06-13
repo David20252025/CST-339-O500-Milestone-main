@@ -10,24 +10,46 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//Milestone 6
+/**
+ * Spring Framework configuration class for setting up application security and authentication
+ */
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Autowired
     private UserDetailsService service;
+    
+    /**
+     * Overrides the default authentication configuration to use a custom UserDetailsService and password encoder.
+     * 
+     * @param auth The authentication manager builder.
+     * @throws Exception If an error occurs during authentication configuration.
+     */
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(service)
             .passwordEncoder(passwordEncoder());
     }
+    
+    /**
+     * A password encoder bean that uses no encoding (plain text, for educational purposes, unsuitable for production)
+     *
+     * @return A password encoder instance that performs no encoding (plain text).
+     */
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+    
+    /**
+     * Overrides the default Spring HTTP security configuration to define authorization rules. Restricts access to certain URLs based on authentication status and configures form-based login and logout behavior.
+     *
+     * @param http The HTTP security object used to configure request authorization and login/logout behavior.
+     * @throws Exception If an error occurs during HTTP security configuration.
+     */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
